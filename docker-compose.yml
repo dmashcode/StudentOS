@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: studentos_db
+    environment:
+      POSTGRES_USER: studentos
+      POSTGRES_PASSWORD: studentos_dev_password
+      POSTGRES_DB: studentos
+    ports:
+      - "5432:5432"
+    volumes:
+      - studentos_pgdata:/var/lib/postgresql/data
+
+volumes:
+  studentos_pgdata:
