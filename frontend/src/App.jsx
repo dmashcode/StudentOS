@@ -3,8 +3,10 @@ import AppLayout from './components/AppLayout'
 import { DataProvider } from './context/DataContext'
 import DashboardPage from './pages/DashboardPage'
 import LoginPage from './pages/LoginPage'
+import NoteEditorPage from './pages/NoteEditorPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
+import WorkspacePage from './pages/WorkspacePage'
 import GuestRoute from './routes/GuestRoute'
 import ProtectedRoute from './routes/ProtectedRoute'
 
@@ -33,7 +35,8 @@ export default function App() {
         }
       >
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/workspace" element={<Placeholder title="Workspace" />} />
+        <Route path="/workspace" element={<WorkspacePage />} />
+        <Route path="/workspace/notes/:id" element={<NoteEditorPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
       <Route path="*" element={<Placeholder title="Not found" />} />

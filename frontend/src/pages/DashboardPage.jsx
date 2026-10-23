@@ -68,7 +68,7 @@ export default function DashboardPage() {
           return (
             <Link
               key={note.id}
-              to={`/workspace?note=${note.id}`}
+              to={`/workspace/notes/${note.id}`}
               className="glass flex items-center gap-4 px-6 py-4 transition hover:-translate-y-0.5"
             >
               <span className="min-w-0 flex-1 truncate font-medium">{note.title}</span>
