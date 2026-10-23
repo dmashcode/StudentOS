@@ -1,5 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import DashboardPage from './pages/DashboardPage'
+import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import GuestRoute from './routes/GuestRoute'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function Placeholder({ title }) {
   return (
@@ -15,12 +19,12 @@ function Placeholder({ title }) {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Placeholder title="Login" />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
-      <Route path="/workspace" element={<Placeholder title="Workspace" />} />
-      <Route path="/profile" element={<Placeholder title="Profile" />} />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
+      <Route path="/register" element={<GuestRoute><RegisterPage /></GuestRoute>} />
+      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/workspace" element={<ProtectedRoute><Placeholder title="Workspace" /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Placeholder title="Profile" /></ProtectedRoute>} />
       <Route path="*" element={<Placeholder title="Not found" />} />
     </Routes>
   )
