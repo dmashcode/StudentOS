@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { loginUser, registerUser } from '../api/auth'
-import { fetchProfile } from '../api/profile'
+import { fetchProfile, updateProfile } from '../api/profile'
 
 const AuthContext = createContext(null)
 
@@ -27,13 +27,17 @@ export function AuthProvider({ children }) {
     await login(email, password)
   }
 
+  async function saveProfile(data) {
+    setProfile(await updateProfile(data))
+  }
+
   function logout() {
     localStorage.removeItem('token')
     setProfile(null)
   }
 
   return (
-    <AuthContext.Provider value={{ profile, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ profile, loading, login, register, saveProfile, logout }}>
       {children}
     </AuthContext.Provider>
   )
