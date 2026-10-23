@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Dancing Script", "Poppins", cursive;
+  --color-gold: #f2b93b;
+  --color-ink: #0f2a3d;
+  --color-ink-soft: #3f6179;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(56, 189, 248, 0.55), transparent 40%),
+    radial-gradient(circle at 92% 90%, rgba(250, 204, 21, 0.5), transparent 38%),
+    radial-gradient(circle at 70% 8%, rgba(125, 211, 252, 0.5), transparent 35%),
+    #eaf6fd;
+  background-attachment: fixed;
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 32px rgba(3, 105, 161, 0.16);
+  border-radius: 24px;
+}
