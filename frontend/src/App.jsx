@@ -1,4 +1,5 @@
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import HealthBadge from './components/HealthBadge'
 
 function Placeholder({ title }) {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Link to="/workspace">Workspace</Link>
         <Link to="/profile">Profile</Link>
       </nav>
+      <HealthBadge />
 
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
