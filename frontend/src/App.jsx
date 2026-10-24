@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout'
 import { DataProvider } from './context/DataContext'
 import DashboardPage from './pages/DashboardPage'
@@ -10,11 +10,19 @@ import WorkspacePage from './pages/WorkspacePage'
 import GuestRoute from './routes/GuestRoute'
 import ProtectedRoute from './routes/ProtectedRoute'
 
-function Placeholder({ title }) {
+function NotFound() {
   return (
-    <div className="glass p-8">
-      <h1 className="font-script text-5xl font-semibold text-sky-700">{title}</h1>
-      <p className="mt-2 text-ink-soft">Ye page abhi khaali hai.</p>
+    <div className="flex min-h-screen items-center justify-center p-6">
+      <div className="glass w-full max-w-md p-8 text-center">
+        <h1 className="font-script text-5xl font-semibold text-sky-700">Page not found</h1>
+        <p className="mt-2 text-ink-soft">The page you are looking for does not exist.</p>
+        <Link
+          to="/dashboard"
+          className="mt-6 inline-block rounded-2xl bg-sky-700 px-7 py-3 font-medium text-white shadow-lg hover:bg-sky-800"
+        >
+          Go to Dashboard
+        </Link>
+      </div>
     </div>
   )
 }
@@ -39,7 +47,7 @@ export default function App() {
         <Route path="/workspace/notes/:id" element={<NoteEditorPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
-      <Route path="*" element={<Placeholder title="Not found" />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

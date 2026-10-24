@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
+import NoteRow from '../components/NoteRow'
 import { useAuth } from '../context/AuthContext'
 import { useData } from '../context/DataContext'
-import { subjectColor } from '../utils/subjectColor'
-import { timeAgo } from '../utils/time'
 
 function StatCard({ value, label, gold }) {
   return (
@@ -39,7 +38,7 @@ export default function DashboardPage() {
           <p className="mt-1 text-ink-soft">{today}</p>
         </div>
         <Link
-          to="/workspace"
+          to="/workspace/notes/new"
           className="rounded-2xl bg-sky-700 px-7 py-3 font-medium text-white shadow-lg hover:bg-sky-800"
         >
           New note
@@ -63,26 +62,9 @@ export default function DashboardPage() {
       )}
 
       <div className="space-y-3">
-        {recent.map((note) => {
-          const subject = subjectById.get(note.subject_id)
-          return (
-            <Link
-              key={note.id}
-              to={`/workspace/notes/${note.id}`}
-              className="glass flex items-center gap-4 px-6 py-4 transition hover:-translate-y-0.5"
-            >
-              <span className="min-w-0 flex-1 truncate font-medium">{note.title}</span>
-              {subject && (
-                <span className={`rounded-full px-3 py-0.5 text-xs ${subjectColor(subject.id).chip}`}>
-                  {subject.name}
-                </span>
-              )}
-              <span className="w-28 text-right text-sm text-ink-soft">
-                {timeAgo(note.updated_at)}
-              </span>
-            </Link>
-          )
-        })}
+        {recent.map((note) => (
+          <NoteRow key={note.id} note={note} subject={subjectById.get(note.subject_id)} />
+        ))}
       </div>
     </div>
   )

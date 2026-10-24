@@ -9,6 +9,11 @@ import {
 
 const DataContext = createContext(null)
 
+async function fetchAll() {
+  const [subjects, notes] = await Promise.all([listSubjects(), listNotes()])
+  return { subjects, notes }
+}
+
 export function DataProvider({ children }) {
   const [subjects, setSubjects] = useState([])
   const [notes, setNotes] = useState([])
@@ -17,20 +22,33 @@ export function DataProvider({ children }) {
 
   const reload = useCallback(async () => {
     try {
-      const [subjectList, noteList] = await Promise.all([listSubjects(), listNotes()])
-      setSubjects(subjectList)
-      setNotes(noteList)
+      const data = await fetchAll()
+      setSubjects(data.subjects)
+      setNotes(data.notes)
       setError('')
     } catch {
       setError('Could not load your data.')
-    } finally {
-      setLoading(false)
     }
   }, [])
 
   useEffect(() => {
-    reload()
-  }, [reload])
+    let ignore = false
+    fetchAll()
+      .then((data) => {
+        if (ignore) return
+        setSubjects(data.subjects)
+        setNotes(data.notes)
+      })
+      .catch(() => {
+        if (!ignore) setError('Could not load your data.')
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false)
+      })
+    return () => {
+      ignore = true
+    }
+  }, [])
 
   async function addSubject(name) {
     await createSubject(name)
