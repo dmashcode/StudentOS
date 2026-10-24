@@ -12,4 +12,15 @@ client.interceptors.request.use((config) => {
   return config
 })
 
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const url = error.config?.url ?? ''
+    if (error.response?.status === 401 && !url.startsWith('/auth/')) {
+      window.dispatchEvent(new Event('auth:expired'))
+    }
+    return Promise.reject(error)
+  },
+)
+
 export default client

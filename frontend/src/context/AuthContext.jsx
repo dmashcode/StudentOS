@@ -16,6 +16,15 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false))
   }, [])
 
+  useEffect(() => {
+    function handleExpired() {
+      localStorage.removeItem('token')
+      setProfile(null)
+    }
+    window.addEventListener('auth:expired', handleExpired)
+    return () => window.removeEventListener('auth:expired', handleExpired)
+  }, [])
+
   async function login(email, password) {
     const token = await loginUser({ email, password })
     localStorage.setItem('token', token)

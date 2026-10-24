@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import NoteRow from '../components/NoteRow'
+import SubjectActions from '../components/SubjectActions'
 import { useData } from '../context/DataContext'
 
 function tabClass(active) {
@@ -60,6 +61,10 @@ export default function WorkspacePage() {
           Unfiled ({unfiledCount})
         </Link>
       </div>
+
+      {subject && (
+        <SubjectActions key={subject.id} subject={subject} noteCount={visible.length} />
+      )}
 
       {error && <p className="rounded-xl bg-rose-100 px-4 py-2 text-rose-800">{error}</p>}
       {loading && <p className="text-ink-soft">Loading...</p>}

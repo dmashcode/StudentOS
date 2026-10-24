@@ -1,6 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { listNotes } from '../api/notes'
-import { createSubject, listSubjects } from '../api/subjects'
+import {
+  createSubject,
+  deleteSubject,
+  listSubjects,
+  renameSubject as renameSubjectApi,
+} from '../api/subjects'
 
 const DataContext = createContext(null)
 
@@ -32,8 +37,20 @@ export function DataProvider({ children }) {
     await reload()
   }
 
+  async function renameSubject(id, name) {
+    await renameSubjectApi(id, name)
+    await reload()
+  }
+
+  async function removeSubject(id) {
+    await deleteSubject(id)
+    await reload()
+  }
+
   return (
-    <DataContext.Provider value={{ subjects, notes, loading, error, reload, addSubject }}>
+    <DataContext.Provider
+      value={{ subjects, notes, loading, error, reload, addSubject, renameSubject, removeSubject }}
+    >
       {children}
     </DataContext.Provider>
   )
